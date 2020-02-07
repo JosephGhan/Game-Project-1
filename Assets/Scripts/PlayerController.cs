@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,9 @@ public class PlayerController : MonoBehaviour
     public float speed = 8.0f;
     public Text countText;
     public float jumpForce = 2.0f;
+    public Text time;
+    public float timer = 0.0f;
+
 
     private Rigidbody rb;
     private int count;
@@ -28,6 +32,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame before physics
     void FixedUpdate()
     {
+        timer += Time.deltaTime;
+        int seconds = Convert.ToInt32(timer % 60);
+        time.text = "Time: " + seconds.ToString();
+
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
         Jump();
