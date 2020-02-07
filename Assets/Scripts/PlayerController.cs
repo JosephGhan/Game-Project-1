@@ -8,18 +8,21 @@ public class PlayerController : MonoBehaviour
     [Header("Edit in Unity")]
     public float speed = 8.0f;
     public Text countText;
-    public Text winText;
+    public float jumpForce = 2.0f;
 
     private Rigidbody rb;
     private int count;
+    private Vector3 jump;
+    private bool isGrounded;
+ 
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
+        jump = new Vector3(0.0f, 2.0f, 0.0f);
         UpdateScore();
-        winText.text = "";
     }
 
     // Update is called once per frame before physics
@@ -27,7 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
-
+        Jump();
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
         rb.AddForce(movement * speed);
@@ -43,12 +46,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        isGrounded = true;
+    }
+
     void UpdateScore()
     {
         countText.text = "Count: " + count.ToString();
-        if (count >= 12)
+    }
+
+    void Jump()
+    {
+        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            winText.text = "You Win!";
+            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
         }
     }
 }
