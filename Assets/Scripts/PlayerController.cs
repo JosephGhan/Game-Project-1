@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -59,11 +60,9 @@ public class PlayerController : MonoBehaviour
                 {
                     Timer.score = seconds;
                 }
-            }
-        }
-        if (count == 12)
-        {
 
+                SceneManager.LoadScene("_Scene_1");
+            }
         }
 
     }
