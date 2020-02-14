@@ -15,9 +15,10 @@ public class PlayerController : MonoBehaviour
 
 
     private Rigidbody rb;
-    private int count;
+    static public int count;
     private Vector3 jump;
     private bool isGrounded;
+    private int seconds;
  
 
     // Start is called before the first frame update
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         timer += Time.deltaTime;
-        int seconds = Convert.ToInt32(timer % 60);
+        seconds = Convert.ToInt32(timer % 60);
         time.text = "Time: " + seconds.ToString();
 
         float moveHorizontal = Input.GetAxis("Horizontal");
@@ -51,6 +52,14 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             count += 1;
             UpdateScore();
+
+            if (count == 12)
+            {
+                if (seconds < Timer.score)
+                {
+                    Timer.score = seconds;
+                }
+            }
         }
         if (count == 12)
         {
