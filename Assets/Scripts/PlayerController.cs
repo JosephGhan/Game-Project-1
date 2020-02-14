@@ -52,6 +52,11 @@ public class PlayerController : MonoBehaviour
             count += 1;
             UpdateScore();
         }
+        if (count == 12)
+        {
+
+        }
+
     }
 
     private void OnCollisionStay(Collision collision)
